@@ -11,8 +11,8 @@ using elementium_backend;
 namespace elementium_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240804204328_NoRelationTables")]
-    partial class NoRelationTables
+    [Migration("20240804212205_InitialCommit")]
+    partial class InitialCommit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
