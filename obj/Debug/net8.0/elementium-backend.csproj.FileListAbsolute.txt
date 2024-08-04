@@ -253,3 +253,4 @@ C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debu
 C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debug\net8.0\elementium-backend.pdb
 C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debug\net8.0\elementium-backend.genruntimeconfig.cache
 C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debug\net8.0\ref\elementium-backend.dll
+C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debug\net8.0\elementium-backend.sourcelink.json

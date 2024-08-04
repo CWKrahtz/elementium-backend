@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using elementium_backend;
 
 namespace elementium_backend;
 
@@ -8,5 +9,12 @@ public class AppDbContext : DbContext
 
     //TODO: All my Endpoint controllers
     //Can use if statements for permissions
-    public DbSet<Users> users {get; set;}
+
+    //public DBSet<ModelName> databasename {get; set;}
+    public DbSet<Users> users { get; set; }
+    public DbSet<UserSecurity> user_security { get; set; }
+    public DbSet<Status> status { get; set; }
+    public DbSet<AuthenticationLog> AuthenticationLogs { get; set; }
+    public DbSet<Transaction> Transactions { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 }
