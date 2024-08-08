@@ -1,0 +1,4 @@
+After altering the database structure (columns), run migration commands:
+
+	- `dotnet ef migrations add "MigrationTitle"`
+	- `dotnet ef database update`
