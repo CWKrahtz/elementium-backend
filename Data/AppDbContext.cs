@@ -20,20 +20,27 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        //u == user ; al == authentication log
+
         //User -> Authentication Log
         //  one-to-many
-        //      UserId - UserId
         modelBuilder.Entity<Users>()
             .HasMany(u => u.AuthenticationLog)
             .WithOne(al => al.Users)
             .HasForeignKey(al => al.UserId);
 
         //User -> UserSecurity
+        //  one-to-one
         modelBuilder.Entity<Users>()
             .HasOne(u => u.UserSecurity)
             .WithOne(u => u.Users)
             .HasForeignKey<UserSecurity>(us => us.UserId);
+        
+        //User -> Account
+        //  one-to-one
+        modelBuilder.Entity<Users>()
+            .HasOne(u => u.Accounts)
+            .WithOne(u => u.Users)
+            .HasForeignKey<Account>(a => a.UserId);
 
         //Do not understand this
         //Account -> Transaction
@@ -52,8 +59,6 @@ public class AppDbContext : DbContext
             .HasForeignKey(t => t.ToAccountId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        //User -> Account
-        
         //Status -> Account
         modelBuilder.Entity<Status>()
             .HasMany(s => s.Accounts)

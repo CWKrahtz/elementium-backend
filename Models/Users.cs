@@ -16,5 +16,6 @@ public class Users
 
     public ICollection<UserSecurity>? AuthenticationLog {get; set;}
     public UserSecurity? UserSecurity {get; set;}
+    public Account? Accounts {get; set;}
     
 }

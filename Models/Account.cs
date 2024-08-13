@@ -18,6 +18,7 @@ public class Account
 
     // Navigation property
     public Status? Status { get; set; }
+    public Users? Users { get; set; }
 
     public ICollection<Transaction>? Transactions { get; set; }
 }
