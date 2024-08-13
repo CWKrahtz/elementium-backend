@@ -15,5 +15,6 @@ public class Users
     public string? Created_at {get; set;}
 
     public ICollection<UserSecurity>? AuthenticationLog {get; set;}
+    public UserSecurity? UserSecurity {get; set;}
     
 }
