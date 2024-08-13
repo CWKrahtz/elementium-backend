@@ -14,6 +14,10 @@ public class AuthenticationLog
     public int IpAddress{get; set;}
     public int DeviceInfo{get; set;}
 
-    //Foreign Key
-    public int UserId {get; set;}
+    //Link the Fk of this table with PK 
+    //-------(using it if field names are different)
+    [ForeignKey("User")]
+    public int UserId { get; set; }
+    //navigation
+    public Users? User {get; set;}
 }

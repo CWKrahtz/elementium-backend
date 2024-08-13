@@ -17,5 +17,5 @@ public class UserSecurity
     public int UserId {get; set;}
 
     [ForeignKey("UserId")]
-    public Users? User { get; set; }
+    public Users? Users { get; set; }
 }

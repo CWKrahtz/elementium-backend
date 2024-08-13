@@ -15,4 +15,6 @@ public class Account
     //Foreign Key
     public int UserId { get; set; }
     public int AccountStatusId { get; set; }
+
+    public ICollection<Transaction>? Transactions { get; set; }
 }

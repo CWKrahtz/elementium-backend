@@ -12,7 +12,16 @@ public class Transaction
     public string? TransactionType {get; set;}
     public int Amount {get; set;}
     public string? Timestamp {get; set;}
-    //Foreign Key
-    public string? FromAccountId {get; set;}
-    public string? ToAccountId {get; set;}
+
+    // Foreign Keys
+    //Link the Fk of this table with PK  -- Do not understand how it works
+    public int FromAccountId { get; set; }
+    public int ToAccountId { get; set; }
+
+    // Navigation properties
+    [ForeignKey("FromAccountId")]
+    public Account? FromAccount { get; set; }
+
+    [ForeignKey("ToAccountId")]
+    public Account? ToAccount { get; set; }
 }

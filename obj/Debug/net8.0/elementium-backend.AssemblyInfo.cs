@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("elementium-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74e318aadef0a7d472881e8e9370fe2e466c22d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cdaffd0d7a15f26a3b151faa6a13c2f9fa5c116a")]
 [assembly: System.Reflection.AssemblyProductAttribute("elementium-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("elementium-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
