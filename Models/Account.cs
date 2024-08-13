@@ -18,7 +18,9 @@ public class Account
 
     // Navigation property
     public Status? Status { get; set; }
-    public Users? Users { get; set; }
+    public Users? User { get; set; }
 
-    public ICollection<Transaction>? Transactions { get; set; }
+    // Separate navigation properties for FromTransactions and ToTransactions
+    public ICollection<Transaction>? FromTransactions { get; set; }
+    public ICollection<Transaction>? ToTransactions { get; set; }
 }

@@ -25,21 +25,21 @@ public class AppDbContext : DbContext
         //  one-to-many
         modelBuilder.Entity<Users>()
             .HasMany(u => u.AuthenticationLog)
-            .WithOne(al => al.Users)
+            .WithOne(al => al.User)
             .HasForeignKey(al => al.UserId);
 
         //User -> UserSecurity
         //  one-to-one
         modelBuilder.Entity<Users>()
             .HasOne(u => u.UserSecurity)
-            .WithOne(u => u.Users)
+            .WithOne(us => us.Users)
             .HasForeignKey<UserSecurity>(us => us.UserId);
         
         //User -> Account
         //  one-to-one
         modelBuilder.Entity<Users>()
-            .HasOne(u => u.Accounts)
-            .WithOne(u => u.Users)
+            .HasOne(u => u.Account)
+            .WithOne(a => a.User)
             .HasForeignKey<Account>(a => a.UserId);
 
         //Do not understand this
@@ -49,15 +49,13 @@ public class AppDbContext : DbContext
         //      AccountId - ToAccountId
         modelBuilder.Entity<Transaction>()
             .HasOne(t => t.FromAccount)
-            .WithMany(a => a.Transactions)
-            .HasForeignKey(t => t.FromAccountId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .WithMany(a => a.FromTransactions)
+            .HasForeignKey(t => t.FromAccountId);
 
         modelBuilder.Entity<Transaction>()
             .HasOne(t => t.ToAccount)
-            .WithMany()
-            .HasForeignKey(t => t.ToAccountId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .WithMany(a => a.ToTransactions)
+            .HasForeignKey(t => t.ToAccountId);
 
         //Status -> Account
         modelBuilder.Entity<Status>()
