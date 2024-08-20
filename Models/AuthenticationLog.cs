@@ -9,8 +9,8 @@ public class AuthenticationLog
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int LogId{get; set;}
-    public int LoginTime{get; set;}
-    public int LogoutTime{get; set;}
+    public DateTime? LoginTime{get; set;}//User login date and time
+    public DateTime? LogoutTime{get; set;}//User logout date and time
     public int IpAddress{get; set;}
     public int DeviceInfo{get; set;}
 

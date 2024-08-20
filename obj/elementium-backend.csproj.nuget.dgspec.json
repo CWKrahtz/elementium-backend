@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/shironoken/Documents/Open Window/2024/repos/elementium-backend/elementium-backend.csproj": {}
+    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {}
   },
   "projects": {
-    "/Users/shironoken/Documents/Open Window/2024/repos/elementium-backend/elementium-backend.csproj": {
+    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shironoken/Documents/Open Window/2024/repos/elementium-backend/elementium-backend.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
         "projectName": "elementium-backend",
-        "projectPath": "/Users/shironoken/Documents/Open Window/2024/repos/elementium-backend/elementium-backend.csproj",
-        "packagesPath": "/Users/shironoken/.nuget/packages/",
-        "outputPath": "/Users/shironoken/Documents/Open Window/2024/repos/elementium-backend/obj/",
+        "projectPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
+        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/shironoken/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -32,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -98,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

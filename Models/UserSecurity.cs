@@ -11,7 +11,7 @@ public class UserSecurity
     public int SecurityId {get; set;}
     public string? Password_hash {get; set;}
     public string? Latest_otp_secret {get; set;}
-    public string? Uploaded_at {get; set;}
+    public DateTime? Uploaded_at {get; set;}//Date and Time user logged OTP
 
     //Foreign Key
     public int UserId {get; set;}
