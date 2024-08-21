@@ -1,24 +1,29 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using elementium_backend.Services;
+using elementium_backend.Models;
 
-namespace YourNamespace.Controllers
+namespace elementium_backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TwoFAController : ControllerBase
+    public class OTPController : ControllerBase
     {
         private readonly EmailService _emailService;
         private static string _generated2FaCode;
 
-        public TwoFAController(EmailService emailService)
+        public OTPController(EmailService emailService)
         {
             _emailService = emailService;
         }
 
         [HttpPost("send-code")]
-        public async Task<IActionResult> Send2FaCode([FromBody] string email)
+        public async Task<IActionResult> Send2FaCode([FromBody] SendOTP request)
         {
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(request?.Email))
             {
                 return BadRequest("Email is required.");
             }
@@ -27,9 +32,9 @@ namespace YourNamespace.Controllers
             _generated2FaCode = Generate2FaCode();
 
             // Send the code via email
-            await _emailService.Send2FaCodeAsync(email, _generated2FaCode);
+            await _emailService.Send2FaCodeAsync(request.Email, _generated2FaCode);
 
-            return Ok("2FA code sent successfully.");
+            return Ok($"2FA code sent successfully to {request.Email}. Code: {_generated2FaCode}");
         }
 
         [HttpPost("verify-code")]
