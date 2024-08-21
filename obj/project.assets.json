@@ -8593,11 +8593,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< Updated upstream
     "C:\\Users\\Shiro\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\eddie\\.nuget\\packages\\": {}
+>>>>>>> Stashed changes
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< Updated upstream
       "projectUniqueName": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
       "projectName": "elementium-backend",
       "projectPath": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
@@ -8606,6 +8611,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Shiro\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+      "projectUniqueName": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
+      "projectName": "elementium-backend",
+      "projectPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
+      "packagesPath": "C:\\Users\\eddie\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\eddie\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> Stashed changes
       ],
       "originalTargetFrameworks": [
         "net8.0"
