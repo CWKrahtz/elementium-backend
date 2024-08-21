@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {}
+    "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {
+    "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
+        "projectUniqueName": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
         "projectName": "elementium-backend",
-        "projectPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\obj\\",
+        "projectPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
+        "packagesPath": "C:\\Users\\eddie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\eddie\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -74,6 +74,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.4, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
