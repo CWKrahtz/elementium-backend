@@ -8593,34 +8593,19 @@
     ]
   },
   "packageFolders": {
-<<<<<<< Updated upstream
-    "C:\\Users\\Shiro\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\eddie\\.nuget\\packages\\": {}
->>>>>>> Stashed changes
+    "C:\\Users\\chris\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< Updated upstream
-      "projectUniqueName": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
+      "projectUniqueName": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
       "projectName": "elementium-backend",
-      "projectPath": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
-      "packagesPath": "C:\\Users\\Shiro\\.nuget\\packages\\",
-      "outputPath": "D:\\Open Window\\2024\\repos\\elementium-backend\\obj\\",
+      "projectPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
+      "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Shiro\\AppData\\Roaming\\NuGet\\NuGet.Config"
-=======
-      "projectUniqueName": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
-      "projectName": "elementium-backend",
-      "projectPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\elementium-backend.csproj",
-      "packagesPath": "C:\\Users\\eddie\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\eddie\\Documents\\GitHub\\elementium-backend\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\eddie\\AppData\\Roaming\\NuGet\\NuGet.Config"
->>>>>>> Stashed changes
+        "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -8709,8 +8694,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
