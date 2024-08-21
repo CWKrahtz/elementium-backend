@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {}
+    "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj": {
+    "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
+        "projectUniqueName": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
         "projectName": "elementium-backend",
-        "projectPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\elementium-backend.csproj",
-        "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\OneDrive\\Desktop\\DV300 Term 3\\project\\elementium-backend\\obj\\",
+        "projectPath": "D:\\Open Window\\2024\\repos\\elementium-backend\\elementium-backend.csproj",
+        "packagesPath": "C:\\Users\\Shiro\\.nuget\\packages\\",
+        "outputPath": "D:\\Open Window\\2024\\repos\\elementium-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chris\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Shiro\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -103,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

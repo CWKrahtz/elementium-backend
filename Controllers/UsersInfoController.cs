@@ -77,6 +77,7 @@ namespace elementium_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Users>> PostUsers(Users users)
         {
+            users.Created_at = DateTime.UtcNow.ToString(); // Set the created_at to the current time, stores as a string sadly, but it works for now.
             _context.users.Add(users);
             await _context.SaveChangesAsync();
 
