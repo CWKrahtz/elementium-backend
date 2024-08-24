@@ -18,6 +18,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
+// CORS policy here
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost3000",
+        builder => builder
+            .WithOrigins("http://localhost:3000") // Allow requests from this origin
+            .AllowAnyMethod() // Allow any HTTP method (GET, POST, etc.)
+            .AllowAnyHeader() // Allow any headers
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +37,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+// **Use the CORS policy here**
+app.UseCors("AllowLocalhost3000");
 
 app.UseHttpsRedirection();
 
