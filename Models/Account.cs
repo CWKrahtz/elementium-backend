@@ -9,7 +9,10 @@ public class Account
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int AccountId { get; set; }
-    public int Balance { get; set; }
+    public int Balance_h2 { get; set; }
+    public int Balance_li { get; set; }
+    public int Balance_pd { get; set; }
+    public int Balance_xe { get; set; }
     public bool Active { get; set; }
 
     //Foreign Key

@@ -36,7 +36,16 @@ namespace elementium_backend.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Balance")
+                    b.Property<int>("Balance_h2")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_li")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_pd")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_xe")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")

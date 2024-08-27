@@ -12,8 +12,8 @@ using elementium_backend;
 namespace elementium_backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240821000301_ChangedCreatedAtBackToStringType")]
-    partial class ChangedCreatedAtBackToStringType
+    [Migration("20240827172205_AccountBalanceUpdate")]
+    partial class AccountBalanceUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,16 @@ namespace elementium_backend.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("Balance")
+                    b.Property<int>("Balance_h2")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_li")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_pd")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Balance_xe")
                         .HasColumnType("integer");
 
                     b.Property<int>("UserId")
