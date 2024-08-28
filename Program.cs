@@ -2,6 +2,7 @@ using elementium_backend;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using YourNamespace.Services;
+using elementium_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddTransient<EmailService>();
 builder.Services.AddControllers();//add controllers for API endpoints
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<CurrencyExchangeService>();
+
 
 //Config of our PostgreSQL databse connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
