@@ -4,29 +4,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using elementium_backend;
 using elementium_backend.Models;
-using elementium_backend.Services;  // Ensure this using directive is present
+using elementium_backend.Services;
+using Microsoft.AspNetCore.Cors;  // Ensure this using directive is present
 
 namespace elementium_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowSpecificOrigin")]
     public class TransactionController : ControllerBase
     {
         private readonly AppDbContext _context;
-        private readonly CurrencyExchangeService _currencyExchangeService;
+        // private readonly CurrencyExchangeService _currencyExchangeService;
 
         // Inject both AppDbContext and CurrencyExchangeService via the constructor
-        public TransactionController(AppDbContext context, CurrencyExchangeService currencyExchangeService)
+        public TransactionController(AppDbContext context) //, CurrencyExchangeService currencyExchangeService
         {
             _context = context;
-            _currencyExchangeService = currencyExchangeService;
+            // _currencyExchangeService = currencyExchangeService;
         }
 
         // GET: api/Transaction
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Transaction>>> GetTransactions()
+        public async Task<IActionResult> GetTransactions()
         {
-            return await _context.Transactions.ToListAsync();
+            var transactions = await _context.Transactions
+                                             .Include(t => t.FromAccount)
+                                             .Include(t => t.ToAccount)
+                                             .ToListAsync();
+
+            if (!transactions.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(transactions);
         }
 
         // GET: api/Transaction/5
@@ -34,10 +46,11 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
             // var transaction = await _context.Transactions.FindAsync(id);
-            Transaction transaction = await _context.Transactions
-                                                .Include(t => t.FromAccount)
-                                                .Include(t => t.ToAccount)
-                                                .SingleOrDefaultAsync(t => t.TransactionId == id);
+            var transaction = await _context.Transactions
+                                    .Include(t => t.FromAccount)
+                                    .Include(t => t.ToAccount)
+                                    .Where(t => t.TransactionId == id)
+                                    .FirstOrDefaultAsync();
 
             if (transaction == null)
             {
@@ -109,15 +122,20 @@ namespace elementium_backend.Controllers
         }
 
         // POST: api/Transaction/exchange
-        [HttpPost("exchange")]
-        public async Task<ActionResult<FeedbackResponse>> ExchangeCurrency([FromBody] ExchangeRequest request)
-        {
-            var feedback = await _currencyExchangeService.ExchangeCurrency(request);
-            if (feedback.Type == StatusCodes.Status200OK)
-            {
-                return Ok(feedback);
-            }
-            return StatusCode(feedback.Type, feedback);
-        }
+        // [HttpPost("exchange")]
+        // public async Task<ActionResult<FeedbackResponse>> ExchangeCurrency([FromBody] ExchangeRequest request)
+        // {
+        //     var feedback = await _currencyExchangeService.ExchangeCurrency(request);
+        //     if (feedback.Type == StatusCodes.Status200OK)
+        //     {
+        //         return Ok(feedback);
+        //     }
+        //     else
+        //     {
+        //         // Ensure feedback.Type is a valid HTTP status code
+        //         return StatusCode(feedback.Type, feedback);
+        //     }
+        // }
+
     }
 }

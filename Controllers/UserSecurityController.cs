@@ -24,7 +24,16 @@ namespace elementium_backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserSecurity>>> Getuser_security()
         {
-            return await _context.user_security.ToListAsync();
+            var userSecurity = await _context.user_security
+                                            .Include(us => us.Users)
+                                            .ToListAsync();
+
+            if (!userSecurity.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(userSecurity);
         }
 
         // GET: api/UserSecurity/5
@@ -32,16 +41,17 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<UserSecurity>> GetUserSecurity(int id)
         {
             // var userSecurity = await _context.user_security.FindAsync(id);
-            UserSecurity userSecurity = await _context.user_security
-            .Include(us => us.Users)
-            .SingleOrDefaultAsync(us => us.SecurityId == id);
+            var userSecurity = await _context.user_security
+                                            .Include(us => us.Users)
+                                            .Where(us => us.SecurityId == id)
+                                            .ToListAsync();
 
-            if (userSecurity == null)
+            if (!userSecurity.Any())
             {
                 return NotFound();
             }
 
-            return userSecurity;
+            return Ok(userSecurity);
         }
 
         // PUT: api/UserSecurity/5

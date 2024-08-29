@@ -12,7 +12,7 @@ namespace elementium_backend.Controllers
     public class OTPController : ControllerBase
     {
         private readonly EmailService _emailService;
-        private static string _generated2FaCode;
+        private static string? _generated2FaCode;
 
         public OTPController(EmailService emailService)
         {
@@ -48,10 +48,12 @@ namespace elementium_backend.Controllers
                 return BadRequest("Code is required.");
 
             // Validate the 2FA code
+#pragma warning disable CS8604 // Possible null reference argument.
             if (Validate2FaCode(code, _generated2FaCode))
             {
                 return Ok("2FA code is valid.");
             }
+#pragma warning restore CS8604 // Possible null reference argument.
 
             return Unauthorized("Invalid 2FA code.");
         }

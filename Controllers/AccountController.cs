@@ -26,7 +26,21 @@ namespace elementium_backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
         {
-            return await _context.Accounts.ToListAsync();
+            // Fetch accounts and include related data
+            var accounts = await _context.Accounts
+                                         .Include(a => a.User)
+                                         .Include(a => a.Status)
+                                         .Include(a => a.FromTransactions)
+                                         .Include(a => a.ToTransactions)
+                                         .ToListAsync();
+
+            // Check if any accounts were found
+            if (!accounts.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(accounts);
         }
 
         // GET: api/Account/5

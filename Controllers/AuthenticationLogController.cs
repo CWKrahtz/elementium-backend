@@ -24,7 +24,17 @@ namespace elementium_backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AuthenticationLog>>> GetAuthenticationLogs()
         {
-            return await _context.AuthenticationLogs.ToListAsync();
+            var authenticationLog = await _context.AuthenticationLogs
+                                                                .Include(al => al.User)
+                                                                .ToListAsync();
+
+
+            if (!authenticationLog.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(authenticationLog);
         }
 
         // GET: api/AuthenticationLog/5
@@ -32,17 +42,18 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<AuthenticationLog>> GetAuthenticationLog(int id)
         {
             // var authenticationLog = await _context.AuthenticationLogs.FindAsync(id);
-            AuthenticationLog authenticationLog = await _context.AuthenticationLogs
+            var authenticationLog = await _context.AuthenticationLogs
                                                                 .Include(al => al.User)
-                                                                .SingleOrDefaultAsync(al => al.LogId == id);
+                                                                .Where(al => al.LogId == id)
+                                                                .ToListAsync();
 
 
-            if (authenticationLog == null)
+            if (!authenticationLog.Any())
             {
                 return NotFound();
             }
 
-            return authenticationLog;
+            return Ok(authenticationLog);
         }
 
         // PUT: api/AuthenticationLog/5

@@ -24,7 +24,18 @@ namespace elementium_backend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Users>>> Getusers()
         {
-            return await _context.users.ToListAsync();
+            var users = await _context.users
+                            .Include(ui => ui.Account)
+                            .Include(ui => ui.AuthenticationLog)
+                            .Include(ui => ui.UserSecurity)
+                            .ToListAsync();
+
+            if (!users.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
         }
 
         // GET: api/UsersInfo/5
@@ -32,18 +43,19 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<Users>> GetUsers(int id)
         {
             // var users = await _context.users.FindAsync(id);
-            Users users = await _context.users
-            .Include(ui => ui.Account)
-            .Include(ui => ui.AuthenticationLog)
-            .Include(ui => ui.UserSecurity)
-            .SingleOrDefaultAsync(ui => ui.UserId == id);
+            var users = await _context.users
+                            .Include(ui => ui.Account)
+                            .Include(ui => ui.AuthenticationLog)
+                            .Include(ui => ui.UserSecurity)
+                            .Where(ui => ui.UserId == id)
+                            .ToListAsync();
 
-            if (users == null)
+            if (!users.Any())
             {
                 return NotFound();
             }
 
-            return users;
+            return Ok(users);
         }
 
         // PUT: api/UsersInfo/5
