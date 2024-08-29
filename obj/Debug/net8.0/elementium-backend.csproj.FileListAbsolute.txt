@@ -1028,3 +1028,5 @@ C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\obj\Debu
 >>>>>>> Stashed changes
 C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\bin\Debug\net8.0\SendGrid.dll
 C:\Users\chris\OneDrive\Desktop\DV300 Term 3\project\elementium-backend\bin\Debug\net8.0\StarkbankEcdsa.dll
+D:\Open Window\2024\repos\elementium-backend\bin\Debug\net8.0\SendGrid.dll
+D:\Open Window\2024\repos\elementium-backend\bin\Debug\net8.0\StarkbankEcdsa.dll
