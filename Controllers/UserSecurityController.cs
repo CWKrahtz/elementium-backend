@@ -31,7 +31,10 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserSecurity>> GetUserSecurity(int id)
         {
-            var userSecurity = await _context.user_security.FindAsync(id);
+            // var userSecurity = await _context.user_security.FindAsync(id);
+            UserSecurity userSecurity = await _context.user_security
+            .Include(us => us.Users)
+            .SingleOrDefaultAsync(us => us.SecurityId == id);
 
             if (userSecurity == null)
             {

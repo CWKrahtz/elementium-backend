@@ -31,14 +31,18 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Status>> GetStatus(int id)
         {
-            var status = await _context.status.FindAsync(id);
+            // var status = await _context.status.FindAsync(id);
+             Status status = await _context.status
+                                        .Include(s => s.Accounts)
+                                        .SingleOrDefaultAsync(s => s.StatusId == id);
+
 
             if (status == null)
             {
                 return NotFound();
             }
 
-            return status;
+            return Ok(status);
         }
 
         // PUT: api/Status/5

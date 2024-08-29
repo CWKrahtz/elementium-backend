@@ -19,9 +19,12 @@ public class Account
     public int UserId { get; set; }
     public int AccountStatusId { get; set; }
 
+#region  NavProperty
     // Navigation property
     public Status? Status { get; set; }
     public Users? User { get; set; }
+
+#endregion
 
     // Separate navigation properties for FromTransactions and ToTransactions
     public ICollection<Transaction>? FromTransactions { get; set; }

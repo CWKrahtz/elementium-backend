@@ -31,7 +31,12 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Users>> GetUsers(int id)
         {
-            var users = await _context.users.FindAsync(id);
+            // var users = await _context.users.FindAsync(id);
+            Users users = await _context.users
+            .Include(ui => ui.Account)
+            .Include(ui => ui.AuthenticationLog)
+            .Include(ui => ui.UserSecurity)
+            .SingleOrDefaultAsync(ui => ui.UserId == id);
 
             if (users == null)
             {

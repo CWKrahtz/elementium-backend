@@ -2,13 +2,20 @@ using elementium_backend;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using elementium_backend.Services;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/
 builder.Services.AddTransient<EmailService>();
-builder.Services.AddControllers();//add controllers for API endpoints
+
+builder.Services.AddControllers()//add controllers for API endpoints
+.AddJsonOptions(option =>
+{
+    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+}); //Prevent continues loop
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
