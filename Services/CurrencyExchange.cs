@@ -31,7 +31,7 @@ namespace elementium_backend.Services
             }
 
             // Check if the account has enough balance
-            if (account.Balance < request.Cost)
+            if (account.Balance_h2 < request.Cost)
             {
                 return new FeedbackResponse
                 {
@@ -43,7 +43,7 @@ namespace elementium_backend.Services
             }
 
             // Deduct the cost from the account balance
-            account.Balance -= (int)request.Cost;
+            account.Balance_h2 -= (int)request.Cost;
 
             // Create a new transaction
             var transaction = new Transaction

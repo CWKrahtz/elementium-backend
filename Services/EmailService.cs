@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
-namespace YourNamespace.Services
+namespace elementium_backend.Services
 {
     public class EmailService
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using YourNamespace.Services;
+using elementium_backend.Services;
 
 namespace elementium_backend.Controllers
 {
