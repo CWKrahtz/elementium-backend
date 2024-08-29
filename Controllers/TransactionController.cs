@@ -33,14 +33,18 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
-            var transaction = await _context.Transactions.FindAsync(id);
+            // var transaction = await _context.Transactions.FindAsync(id);
+            Transaction transaction = await _context.Transactions
+                                                .Include(t => t.FromAccount)
+                                                .Include(t => t.ToAccount)
+                                                .SingleOrDefaultAsync(t => t.TransactionId == id);
 
             if (transaction == null)
             {
                 return NotFound();
             }
 
-            return transaction;
+            return Ok(transaction);
         }
 
         // PUT: api/Transaction/5

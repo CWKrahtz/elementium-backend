@@ -1,3 +1,10 @@
+*Swagger default URL: http://localhost:5138/swagger/index.html
+
+Install for entity framework tool (ef):
+
+	- `dotnet tool install --global dotnet-ef`
+
+
 After altering the database structure (columns), run migration commands:
 
 	- `dotnet ef migrations add "MigrationTitle"`

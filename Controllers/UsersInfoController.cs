@@ -31,7 +31,12 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Users>> GetUsers(int id)
         {
-            var users = await _context.users.FindAsync(id);
+            // var users = await _context.users.FindAsync(id);
+            Users users = await _context.users
+            .Include(ui => ui.Account)
+            .Include(ui => ui.AuthenticationLog)
+            .Include(ui => ui.UserSecurity)
+            .SingleOrDefaultAsync(ui => ui.UserId == id);
 
             if (users == null)
             {
@@ -77,6 +82,7 @@ namespace elementium_backend.Controllers
         [HttpPost]
         public async Task<ActionResult<Users>> PostUsers(Users users)
         {
+            users.Created_at = DateTime.UtcNow.ToString(); // Set the created_at to the current time, stores as a string sadly, but it works for now.
             _context.users.Add(users);
             await _context.SaveChangesAsync();
 

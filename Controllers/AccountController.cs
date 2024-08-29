@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using elementium_backend;
+using Microsoft.AspNetCore.Cors;
 
 namespace elementium_backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowSpecificOrigin")]
     public class AccountController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -31,14 +33,20 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Account>> GetAccount(int id)
         {
-            var account = await _context.Accounts.FindAsync(id);
+            // var account = await _context.Accounts.FindAsync(id);
+            Account account = await _context.Accounts
+                                        .Include(a => a.User)
+                                        .Include(a => a.Status)
+                                        .Include(a => a.FromTransactions)
+                                        .Include(a => a.FromTransactions)
+                                        .SingleOrDefaultAsync(a => a.AccountId == id);
 
             if (account == null)
             {
                 return NotFound();
             }
 
-            return account;
+            return Ok(account);
         }
 
         // PUT: api/Account/5

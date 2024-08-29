@@ -31,7 +31,11 @@ namespace elementium_backend.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthenticationLog>> GetAuthenticationLog(int id)
         {
-            var authenticationLog = await _context.AuthenticationLogs.FindAsync(id);
+            // var authenticationLog = await _context.AuthenticationLogs.FindAsync(id);
+            AuthenticationLog authenticationLog = await _context.AuthenticationLogs
+                                                                .Include(al => al.User)
+                                                                .SingleOrDefaultAsync(al => al.LogId == id);
+
 
             if (authenticationLog == null)
             {
