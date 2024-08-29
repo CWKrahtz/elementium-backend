@@ -34,19 +34,20 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<Account>> GetAccount(int id)
         {
             // var account = await _context.Accounts.FindAsync(id);
-            Account account = await _context.Accounts
-                                        .Include(a => a.User)
-                                        .Include(a => a.Status)
-                                        .Include(a => a.FromTransactions)
-                                        .Include(a => a.FromTransactions)
-                                        .SingleOrDefaultAsync(a => a.AccountId == id);
+            var accounts = await _context.Accounts
+                                .Include(a => a.User)
+                                .Include(a => a.Status)
+                                .Include(a => a.FromTransactions)
+                                .Include(a => a.ToTransactions)
+                                .Where(a => a.AccountId == id)
+                                .ToListAsync();
 
-            if (account == null)
+            if (!accounts.Any())
             {
                 return NotFound();
             }
 
-            return Ok(account);
+            return Ok(accounts);
         }
 
         // PUT: api/Account/5

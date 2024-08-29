@@ -32,12 +32,13 @@ namespace elementium_backend.Controllers
         public async Task<ActionResult<Status>> GetStatus(int id)
         {
             // var status = await _context.status.FindAsync(id);
-             Status status = await _context.status
+             var status = await _context.status
                                         .Include(s => s.Accounts)
-                                        .SingleOrDefaultAsync(s => s.StatusId == id);
+                                        .Where(s => s.StatusId == id)
+                                        .ToListAsync();
 
 
-            if (status == null)
+            if (!status.Any())
             {
                 return NotFound();
             }
