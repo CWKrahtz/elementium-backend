@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using elementium_backend;
+using elementium_backend.Models;
+using elementium_backend.Services;  // Ensure this using directive is present
 
 namespace elementium_backend.Controllers
 {
@@ -14,10 +13,13 @@ namespace elementium_backend.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly CurrencyExchangeService _currencyExchangeService;
 
-        public TransactionController(AppDbContext context)
+        // Inject both AppDbContext and CurrencyExchangeService via the constructor
+        public TransactionController(AppDbContext context, CurrencyExchangeService currencyExchangeService)
         {
             _context = context;
+            _currencyExchangeService = currencyExchangeService;
         }
 
         // GET: api/Transaction
@@ -46,7 +48,6 @@ namespace elementium_backend.Controllers
         }
 
         // PUT: api/Transaction/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTransaction(int id, Transaction transaction)
         {
@@ -77,7 +78,6 @@ namespace elementium_backend.Controllers
         }
 
         // POST: api/Transaction
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Transaction>> PostTransaction(Transaction transaction)
         {
@@ -106,6 +106,18 @@ namespace elementium_backend.Controllers
         private bool TransactionExists(int id)
         {
             return _context.Transactions.Any(e => e.TransactionId == id);
+        }
+
+        // POST: api/Transaction/exchange
+        [HttpPost("exchange")]
+        public async Task<ActionResult<FeedbackResponse>> ExchangeCurrency([FromBody] ExchangeRequest request)
+        {
+            var feedback = await _currencyExchangeService.ExchangeCurrency(request);
+            if (feedback.Type == StatusCodes.Status200OK)
+            {
+                return Ok(feedback);
+            }
+            return StatusCode(feedback.Type, feedback);
         }
     }
 }

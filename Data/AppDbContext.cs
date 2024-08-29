@@ -18,6 +18,9 @@ public class AppDbContext : DbContext
     public DbSet<Transaction> Transactions { get; set; }
     public DbSet<Account> Accounts { get; set; }
 
+    public DbSet<LoginForm> Login { get; set; }
+    public DbSet<RegisterForm> Register { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
@@ -34,7 +37,7 @@ public class AppDbContext : DbContext
             .HasOne(u => u.UserSecurity)
             .WithOne(us => us.Users)
             .HasForeignKey<UserSecurity>(us => us.UserId);
-        
+
         //User -> Account
         //  one-to-one
         modelBuilder.Entity<Users>()

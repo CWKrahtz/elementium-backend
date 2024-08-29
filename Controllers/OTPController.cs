@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using elementium_backend.Services;
-using elementium_backend.Models;
+using YourNamespace.Services;
 
 namespace elementium_backend.Controllers
 {
@@ -37,13 +36,16 @@ namespace elementium_backend.Controllers
             return Ok($"2FA code sent successfully to {request.Email}. Code: {_generated2FaCode}");
         }
 
+/// <summary>
+/// Verifies OTP
+/// </summary>
+/// <param name="code"></param>
+/// <returns></returns>
         [HttpPost("verify-code")]
         public IActionResult Verify2FaCode([FromBody] string code)
         {
             if (string.IsNullOrEmpty(code))
-            {
                 return BadRequest("Code is required.");
-            }
 
             // Validate the 2FA code
             if (Validate2FaCode(code, _generated2FaCode))
