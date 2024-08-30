@@ -3,12 +3,14 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using elementium_backend.Services;
 using System.Text.Json.Serialization;
+using elementium_backend.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/
 builder.Services.AddTransient<EmailService>();
+builder.Services.AddTransient<IOtpService, OtpService>();
 
 builder.Services.AddControllers()//add controllers for API endpoints
 .AddJsonOptions(option =>
@@ -18,11 +20,14 @@ builder.Services.AddControllers()//add controllers for API endpoints
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<OTPController>();
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IOtpService, OtpService>();
 
 
 //Config of our PostgreSQL databse connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options => 
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
@@ -31,7 +36,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         policy => policy
-            .WithOrigins("http://localhost:3000") 
+            .WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -55,7 +60,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

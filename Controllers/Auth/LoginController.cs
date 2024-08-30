@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using elementium_backend.Services;
 
 namespace elementium_backend.Controllers.Auth
 {
@@ -11,26 +12,26 @@ namespace elementium_backend.Controllers.Auth
     public class LoginController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IOtpService _otpService;
 
-        public LoginController(AppDbContext context)
+        public LoginController(AppDbContext context, IOtpService otpService)
         {
             _context = context;
+            _otpService = otpService;
         }
 
         [HttpPost]
         public async Task<ActionResult<Account>> LoginUser(LoginForm form)
         {
             var allUsers = await _context.users.ToListAsync();
+
             // Validate the user's credentials by querying the Users table
             var user = await _context.users
-                // .FirstOrDefaultAsync(u => u.Email == form.Email && u.UserSecurity.Password_hash == form.Passowrd);
                 .FirstOrDefaultAsync(u => u.Email == form.Email);
 
             if (user == null)
             {
                 // If no matching user is found, return an Unauthorized result
-                // Return Unauthorized feedback
-
                 var feedback = new FeedbackResponse
                 {
                     Type = StatusCodes.Status401Unauthorized,
@@ -65,15 +66,20 @@ namespace elementium_backend.Controllers.Auth
                 return NotFound(feedback);
             }
 
-            // Return the account information on successful login
+            // Send the 2FA code via OTPController after successful login
+            var useremail = form.Email;
+            var userId = user.UserId;
+
+            await _otpService.Send2FaCodeAsync(useremail, userId);
             var successFeedback = new FeedbackResponse
             {
                 Type = StatusCodes.Status200OK,
                 Status = "Success",
-                Message = "Login successful",
+                Message = "Login successful. 2FA code has been sent to your email.",
                 Body = account
             };
             return Ok(successFeedback);
         }
+
     }
 }

@@ -65,5 +65,10 @@ public class AppDbContext : DbContext
             .HasMany(s => s.Accounts)
             .WithOne(a => a.Status)
             .HasForeignKey(a => a.AccountStatusId);
+
+        modelBuilder.Entity<UserSecurity>()
+.HasOne(us => us.Users)
+.WithOne(u => u.UserSecurity)
+.HasForeignKey<UserSecurity>(us => us.UserId);
     }
 }

@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using elementium_backend.Services;
 
 namespace elementium_backend.Controllers
@@ -11,14 +9,17 @@ namespace elementium_backend.Controllers
     [Route("api/[controller]")]
     public class OTPController : ControllerBase
     {
-        private readonly EmailService _emailService;
-        private static string? _generated2FaCode;
+        private readonly IOtpService _otpService;
+        private static string _generated2FaCode = "";
 
-        public OTPController(EmailService emailService)
+        public OTPController(IOtpService otpService)
         {
-            _emailService = emailService;
+            _otpService = otpService;
         }
 
+        /// <summary>
+        /// Generates 2FA code and sends it to the provided email.
+        /// </summary>
         [HttpPost("send-code")]
         public async Task<IActionResult> Send2FaCode([FromBody] SendOTP request)
         {
@@ -30,17 +31,18 @@ namespace elementium_backend.Controllers
             // Generate a 2FA code
             _generated2FaCode = Generate2FaCode();
 
-            // Send the code via email
-            await _emailService.Send2FaCodeAsync(request.Email, _generated2FaCode);
+            var useremail = request.Email;
+            var userId = request.UserId;
+
+            // Send the code via the OTP service
+            await _otpService.Send2FaCodeAsync(useremail, userId);
 
             return Ok($"2FA code sent successfully to {request.Email}. Code: {_generated2FaCode}");
         }
 
-/// <summary>
-/// Verifies OTP
-/// </summary>
-/// <param name="code"></param>
-/// <returns></returns>
+        /// <summary>
+        /// Verifies the provided 2FA code.
+        /// </summary>
         [HttpPost("verify-code")]
         public IActionResult Verify2FaCode([FromBody] string code)
         {
@@ -48,12 +50,10 @@ namespace elementium_backend.Controllers
                 return BadRequest("Code is required.");
 
             // Validate the 2FA code
-#pragma warning disable CS8604 // Possible null reference argument.
             if (Validate2FaCode(code, _generated2FaCode))
             {
                 return Ok("2FA code is valid.");
             }
-#pragma warning restore CS8604 // Possible null reference argument.
 
             return Unauthorized("Invalid 2FA code.");
         }
