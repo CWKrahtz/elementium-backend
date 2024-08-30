@@ -48,7 +48,11 @@ namespace elementium_backend.Controllers.Auth
 
             // Retrieve the associated account information
             var account = await _context.users
-                .FirstOrDefaultAsync(a => a.UserId == user.UserId);
+                .Include(u => u.Account)
+                .Include(u => u.AuthenticationLog)
+                .Include(u => u.UserSecurity)
+                .Where(a => a.UserId == user.UserId)
+                .ToListAsync();
 
             if (account == null)
             {
