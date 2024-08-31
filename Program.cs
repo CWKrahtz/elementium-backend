@@ -23,6 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<OTPController>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IOtpService, OtpService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 
 //Config of our PostgreSQL databse connection
