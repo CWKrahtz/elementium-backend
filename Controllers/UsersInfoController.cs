@@ -22,12 +22,13 @@ namespace elementium_backend.Controllers
 
         // GET: api/UsersInfo
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Users>>> Getusers()
+        public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             var users = await _context.users
-                            .Include(ui => ui.Account)
                             .Include(ui => ui.AuthenticationLog)
                             .Include(ui => ui.UserSecurity)
+                            .Include(ui => ui.Account)
+                                .ThenInclude(a => a.FromTransactions)
                             .ToListAsync();
 
             if (!users.Any())
@@ -45,6 +46,7 @@ namespace elementium_backend.Controllers
             // var users = await _context.users.FindAsync(id);
             var users = await _context.users
                             .Include(ui => ui.Account)
+                                .ThenInclude(account => account.FromTransactions)
                             .Include(ui => ui.AuthenticationLog)
                             .Include(ui => ui.UserSecurity)
                             .Where(ui => ui.UserId == id)
