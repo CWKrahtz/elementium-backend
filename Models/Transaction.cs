@@ -24,4 +24,5 @@ public class Transaction
 
     [ForeignKey("ToAccountId")]
     public Account? ToAccount { get; set; }
+    
 }

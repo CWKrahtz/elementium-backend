@@ -12,11 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<EmailService>();
 builder.Services.AddTransient<IOtpService, OtpService>();
 
-builder.Services.AddControllers()//add controllers for API endpoints
-.AddJsonOptions(option =>
-{
-    option.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-}); //Prevent continues loop
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // To ignore circular references
+        });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
