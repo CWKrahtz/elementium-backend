@@ -100,28 +100,28 @@ namespace elementium_backend.Controllers.Auth
                 _context.AuthenticationLogs.Add(authLog);
                 await _context.SaveChangesAsync();
 
+                // Send the 2FA code via OTPController after successful registration
+                await _otpService.Send2FaCodeAsync(newUser.Email, newUser.UserId);
+
                 // Commit the transaction
                 await transaction.CommitAsync();
-
-                // Send the 2FA code via OTPController after successful register
-                await _otpService.Send2FaCodeAsync(newUser.Email, newUser.UserId);
 
                 var successFeedback = new FeedbackResponse
                 {
                     Type = StatusCodes.Status201Created,
                     Status = "Success",
-                    Message = "User registration successful.2FA sent to your email",
+                    Message = "User registration successful. 2FA sent to your email",
                     Body = newUser
                 };
                 return CreatedAtAction(nameof(RegisterUser), new { id = newUser.UserId }, successFeedback);
             }
             catch (Exception ex)
             {
-                // Log the error (you can implement a logging mechanism here)
-                Console.WriteLine(ex.Message);
-
                 // Rollback the transaction if any error occurs
                 await transaction.RollbackAsync();
+
+                // Log the error (you can implement a logging mechanism here)
+                Console.WriteLine(ex.Message);
 
                 var feedback = new FeedbackResponse
                 {
@@ -133,6 +133,5 @@ namespace elementium_backend.Controllers.Auth
                 return StatusCode(StatusCodes.Status500InternalServerError, feedback);
             }
         }
-
     }
 }
