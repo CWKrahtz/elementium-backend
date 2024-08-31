@@ -29,6 +29,8 @@ namespace elementium_backend.Controllers
                             .Include(ui => ui.UserSecurity)
                             .Include(ui => ui.Account)
                                 .ThenInclude(a => a.FromTransactions)
+                            .Include(ui => ui.Account)
+                                .ThenInclude(a => a.Status)
                             .ToListAsync();
 
             if (!users.Any())
@@ -47,6 +49,8 @@ namespace elementium_backend.Controllers
             var users = await _context.users
                             .Include(ui => ui.Account)
                                 .ThenInclude(account => account.FromTransactions)
+                            .Include(ui => ui.Account)
+                                .ThenInclude(account => account.ToTransactions)
                             .Include(ui => ui.AuthenticationLog)
                             .Include(ui => ui.UserSecurity)
                             .Where(ui => ui.UserId == id)
