@@ -70,6 +70,15 @@ namespace elementium_backend.Controllers.Auth
                 return NotFound(feedback);
             }
 
+            var user_security = await _context.user_security
+                        .FirstOrDefaultAsync(us => us.UserId == user.UserId);
+            // Update the Latest_otp_secret field
+            user_security.IsOtpVerified = false;
+
+            // Save the changes
+            _context.user_security.Update(user_security);
+            await _context.SaveChangesAsync();
+
             // Send the 2FA code via OTPController after successful login
             var useremail = form.Email;
             var userId = user.UserId;

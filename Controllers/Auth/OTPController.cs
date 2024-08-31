@@ -113,7 +113,7 @@ namespace elementium_backend.Controllers
             {
                 Type = StatusCodes.Status403Forbidden,
                 Status = "Error",
-                Message = "Access denied because is wrong. Try again.",
+                Message = "OTP code is wrong. Try again.",
                 Body = user_security.Latest_otp_secret
             };
             return Unauthorized(unauthFeedback);
