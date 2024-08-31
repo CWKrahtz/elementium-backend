@@ -40,10 +40,53 @@ namespace elementium_backend.Controllers
             var useremail = request.Email;
             var userId = request.UserId;
 
+            var user = await _context.users
+                .FirstOrDefaultAsync(u => u.Email == request.Email);
+            // Check if user exists
+            if (user == null)
+            {
+                var userNotFoundFeedback = new FeedbackResponse
+                {
+                    Type = StatusCodes.Status404NotFound,
+                    Status = "Error",
+                    Message = "User not found."
+                };
+                return NotFound(userNotFoundFeedback);
+            }
+
+            // Get user_security of user, validate and update otp.
+            var user_security = await _context.user_security
+            .FirstOrDefaultAsync(us => us.UserId == user.UserId);
+            if (user_security == null)
+            {
+                var userNotFoundFeedback = new FeedbackResponse
+                {
+                    Type = StatusCodes.Status404NotFound,
+                    Status = "Error",
+                    Message = "User's security not found."
+                };
+                return NotFound(userNotFoundFeedback);
+            }
+
+            // Update the Latest_otp_secret field
+            user_security.IsOtpVerified = false;
+            user_security.Latest_otp_secret = _generated2FaCode;
+
+            // Save the changes
+            _context.user_security.Update(user_security);
+            await _context.SaveChangesAsync();
+
+
             // Send the code via the OTP service
             await _otpService.Send2FaCodeAsync(useremail, userId);
 
-            return Ok($"2FA code sent successfully to {request.Email}. Code: {_generated2FaCode}");
+            var successFeedback = new FeedbackResponse
+            {
+                Type = StatusCodes.Status200OK,
+                Status = "Success",
+                Message = $"OTP code sent successfully to {request.Email}."
+            };
+            return Ok(successFeedback);
         }
 
         /// <summary>
@@ -65,7 +108,7 @@ namespace elementium_backend.Controllers
 
             var user = await _context.users
                 .FirstOrDefaultAsync(u => u.Email == request.Email);
-
+            // Check if user exists
             if (user == null)
             {
                 var userNotFoundFeedback = new FeedbackResponse
@@ -79,6 +122,7 @@ namespace elementium_backend.Controllers
 
             var user_security = await _context.user_security
             .FirstOrDefaultAsync(us => us.UserId == user.UserId);
+            // Check if user's security exists.
             if (user_security == null)
             {
                 var userNotFoundFeedback = new FeedbackResponse
