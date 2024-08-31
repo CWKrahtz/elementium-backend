@@ -17,8 +17,8 @@ namespace elementium_backend.Services
 
         public async Task Send2FaCodeAsync(string toEmail, string code)
         {
-            var apiKey = _configuration["Mailgun:ApiKey"];
-            var domain = _configuration["Mailgun:Domain"];
+            var apiKey = _configuration["Mailgun2:ApiKey"];
+            var domain = _configuration["Mailgun2:Domain"];
             var client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
@@ -26,7 +26,7 @@ namespace elementium_backend.Services
 
             var requestContent = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("from", "Elementium Team <21100419@virtualwindow.co.za>"),
+                new KeyValuePair<string, string>("from", "Elementium Team <info@elementium.com>"),
                 new KeyValuePair<string, string>("to", toEmail),
                 new KeyValuePair<string, string>("subject", "Verfication Code"),
                 new KeyValuePair<string, string>("text", $"Your 2FA code is {code}"),
