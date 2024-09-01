@@ -2,6 +2,10 @@ using elementium_backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using elementium_backend.Services;
 
@@ -14,7 +18,6 @@ namespace elementium_backend.Controllers.Auth
         private readonly AppDbContext _context;
         private readonly IOtpService _otpService;
         private readonly IPasswordService _passwordService;
-
 
         public LoginController(AppDbContext context, IOtpService otpService, IPasswordService passwordService)
         {
@@ -34,7 +37,6 @@ namespace elementium_backend.Controllers.Auth
 
             if (user == null)
             {
-                // If no matching user is found, return an Unauthorized result
                 var feedback = new FeedbackResponse
                 {
                     Type = StatusCodes.Status401Unauthorized,
@@ -96,6 +98,36 @@ namespace elementium_backend.Controllers.Auth
             _context.user_security.Update(user_security);
             await _context.SaveChangesAsync();
 
+            // auth logs
+            var auth_logs = await _context.AuthenticationLogs
+                                .FirstOrDefaultAsync(us => us.UserId == user.UserId);
+
+            // Check if Auth Logs for user exists
+            if (auth_logs == null)
+            {
+                auth_logs = new AuthenticationLog
+                {
+                    UserId = user.UserId,
+                    IpAddress = IpAddressToInt(GetClientIpAddress()),
+                    LoginTime = DateTime.UtcNow
+                };
+
+                // Since it's a new log, you should add it
+                _context.AuthenticationLogs.Add(auth_logs);
+            }
+            else
+            {
+                // If the log exists, update it
+                auth_logs.IpAddress = IpAddressToInt(GetClientIpAddress());
+                auth_logs.LoginTime = DateTime.UtcNow;
+
+                // No need to add, just update
+                _context.AuthenticationLogs.Update(auth_logs);
+            }
+
+            // Save the changes
+            await _context.SaveChangesAsync();
+
             // Send the 2FA code via OTPController after successful login
             var useremail = form.Email;
             var userId = user.UserId;
@@ -111,5 +143,22 @@ namespace elementium_backend.Controllers.Auth
             return Ok(successFeedback);
         }
 
+        // Helper method to get the client IP address
+        private string GetClientIpAddress()
+        {
+            return HttpContext.Connection.RemoteIpAddress?.ToString();
+        }
+
+        // Helper method to convert an IP address string to an integer
+        private int IpAddressToInt(string ipAddress)
+        {
+            if (IPAddress.TryParse(ipAddress, out IPAddress ip))
+            {
+                byte[] bytes = ip.GetAddressBytes();
+                Array.Reverse(bytes); // Convert to little-endian
+                return BitConverter.ToInt32(bytes, 0);
+            }
+            return 0; // Default value if IP conversion fails
+        }
     }
 }

@@ -94,7 +94,7 @@ namespace elementium_backend.Controllers.Auth
                 var authLog = new AuthenticationLog
                 {
                     UserId = newUser.UserId,
-                    // other properties with default values
+                    LoginTime = System.DateTime.UtcNow
                 };
 
                 _context.AuthenticationLogs.Add(authLog);
