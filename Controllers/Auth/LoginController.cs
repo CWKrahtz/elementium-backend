@@ -13,11 +13,14 @@ namespace elementium_backend.Controllers.Auth
     {
         private readonly AppDbContext _context;
         private readonly IOtpService _otpService;
+        private readonly IPasswordService _passwordService;
 
-        public LoginController(AppDbContext context, IOtpService otpService)
+
+        public LoginController(AppDbContext context, IOtpService otpService, IPasswordService passwordService)
         {
             _context = context;
             _otpService = otpService;
+            _passwordService = passwordService;
         }
 
         [HttpPost]
@@ -72,6 +75,20 @@ namespace elementium_backend.Controllers.Auth
 
             var user_security = await _context.user_security
                         .FirstOrDefaultAsync(us => us.UserId == user.UserId);
+
+            // Check if password matches
+            if (!_passwordService.VerifyPassword(user_security.Password_hash, form.Password))
+            {
+                var feedback = new FeedbackResponse
+                {
+                    Type = StatusCodes.Status400BadRequest,
+                    Status = "Error",
+                    Message = "Incorrect email or password.",
+                    Body = null
+                };
+                return BadRequest(feedback);
+            }
+
             // Update the Latest_otp_secret field
             user_security.IsOtpVerified = false;
 
