@@ -17,8 +17,8 @@ namespace elementium_backend.Services
 
         public async Task Send2FaCodeAsync(string toEmail, string code)
         {
-            var apiKey = _configuration["Mailgun2:ApiKey"];
-            var domain = _configuration["Mailgun2:Domain"];
+            var apiKey = _configuration["Mailgun:ApiKey"];
+            var domain = _configuration["Mailgun:Domain"];
             var client = new HttpClient();
 
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
